@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #game {
+            background-color: black;
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        #pacman {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div id="pacman"></div>
+    </div>
+
+    <script>
+        const pacman = document.getElementById('pacman');
+        let x = 275;
+        let y = 175;
+        let angle = 45;
+        let speed = 5;
+
+        function updatePacmanPosition() {
+            x += speed * Math.cos((angle - 45) * (Math.PI / 180));
+            y += speed * Math.sin((angle - 45) * (Math.PI / 180));
+            pacman.style.left = x + 'px';
+            pacman.style.top = y + 'px';
+        }
+
+        window.addEventListener('keydown', function (event) {
+            switch (event.key) {
+                case 'ArrowUp':
+                    angle = 0;
+                    break;
+                case 'ArrowDown':
+                    angle = 180;
+                    break;
+                case 'ArrowLeft':
+                    angle = 270;
+                    break;
+                case 'ArrowRight':
+                    angle = 90;
+                    break;
+            }
+        });
+
+        function gameLoop() {
+            updatePacmanPosition();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>
